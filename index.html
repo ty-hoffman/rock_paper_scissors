@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        <!-- Create array with values of rock/paper/scissors-->
+        let choices = ['Rock', 'Paper', 'Scissors']
+
+        <!-- Create function to randomly return rock/paper/scissors -->
+        function getComputerChoice () {
+            let random_Index = Math.floor(Math.random() * choices.length);
+            let random_answer = choices[random_Index];
+            return random_answer;
+        }
+    </script>
+</html>
