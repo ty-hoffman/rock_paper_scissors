@@ -82,6 +82,8 @@
 
         // Create function to run game five times (extra rounds if there is a tie)
         function game() {
+            userScore = 0;
+            roundsLeft = 5;
             while (roundsLeft != 0) {
                 pc_answer = getComputerChoice();
                 user_answer = getPlayerSelection();
