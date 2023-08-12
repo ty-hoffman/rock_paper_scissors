@@ -13,6 +13,8 @@ let userScore = 0;
 // Create variable to hold the number of games remaining with initial value at 5
 let roundsLeft = 5;
 
+let result = ''
+
 // Create function getComputerChoice to randomly return rock/paper/scissors
 function getComputerChoice () {
     let random_Index = Math.floor(Math.random() * choices.length);
@@ -21,20 +23,24 @@ function getComputerChoice () {
 }
 
 // Create function getPlayerSelection to ask player for rock/paper/scissors input
-function getPlayerSelection () {
-    let player_input = prompt('Do you choose rock, paper, or scissors?');
-    let player_answer = player_input.toLowerCase();
-        while (player_answer != 'rock' && player_answer != 'paper' && player_answer != 'scissors') {
-            player_input = prompt('Incorrect Selection! Please choose again.');
-            player_answer = player_input.toLowerCase();
-        }
-    return player_answer;
+function getPlayerSelection (e) {
+    user_answer = e.target.innerText.toLowerCase();
+    return user_answer;
 }
 
 // Create function to run one round of rock/paper/scissors
-function playRound (pc_answer, user_answer) {
+function playRound (e) {
+
+    pc_answer = getComputerChoice();
+    getPlayerSelection(e);
+
     let answer_combined = pc_answer + " | " +  user_answer
-    let result = ''
+
+    if (roundsLeft === 0) {
+        userScore = 0;
+        roundsLeft = 5;
+    }
+
     switch (answer_combined) {
         case "rock | paper":
             result = "You win! Paper beats Rock."
@@ -73,24 +79,33 @@ function playRound (pc_answer, user_answer) {
             roundsLeft--;
             break;
     }
-    return result;
+    game();
 }
 
 // Create function to run game five times (extra rounds if there is a tie)
 function game() {
-    userScore = 0;
-    roundsLeft = 5;
-    while (roundsLeft != 0) {
-        pc_answer = getComputerChoice();
-        user_answer = getPlayerSelection();
-        round_result = playRound(pc_answer, user_answer);
-        console.log(round_result);
-    }
-    if (userScore >= 3) {
-        console.log (`You won! You had ${userScore} wins.`);
+    roundResultText.textContent = result;
+    cpuScore = (5 - userScore - roundsLeft);
+    gameResult = `User: ${userScore} wins. PC: ${cpuScore} wins.`
+    if (roundsLeft === 0) {
+        if (userScore >= 3) {
+            gameResult = `You won! You had ${userScore} wins.`;
 
+        }
+        else {
+            gameResult = `You lost. You had only ${userScore} wins.`;
+        }
     }
-    else {
-        console.log (`You lost. You had only ${userScore} wins.`);
-    }
+    mainGameHeaderText.textContent = gameResult;
 }
+
+// creating buttons node list
+const buttons = document.querySelectorAll('button');
+
+// add event listener for all buttons
+buttons.forEach((button) => { 
+    button.addEventListener("click", playRound);
+});
+
+const roundResultText = document.querySelector('.roundResult');
+const mainGameHeaderText = document.querySelector('.mainGameHeader');

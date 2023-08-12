@@ -1,0 +1,29 @@
+html {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+button {
+    width: 75px;
+}
+
+.mainGameHeader {
+    font-size: 20px;
+    font-weight: bold;
+}
