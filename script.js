@@ -31,15 +31,16 @@ function getPlayerSelection (e) {
 // Create function to run one round of rock/paper/scissors
 function playRound (e) {
 
+    if (roundsLeft === 0) {
+        roundResultText.innerText = 'Please reset the game to play again.'
+        roundResultText.c
+        return;
+    }
+
     pc_answer = getComputerChoice();
     getPlayerSelection(e);
 
     let answer_combined = pc_answer + " | " +  user_answer
-
-    if (roundsLeft === 0) {
-        userScore = 0;
-        roundsLeft = 5;
-    }
 
     switch (answer_combined) {
         case "rock | paper":
@@ -99,8 +100,18 @@ function game() {
     mainGameHeaderText.textContent = gameResult;
 }
 
+// Create function to reset game
+function resetGame () {
+    userScore = 0;
+    cpuScore = 0;
+    roundsLeft = 5;
+
+    roundResultText.innerText = ''
+    mainGameHeaderText.innerText = 'A game has not been started. Select your choice below to begin.'
+}
+
 // creating buttons node list
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.selectionButtons button');
 
 // add event listener for all buttons
 buttons.forEach((button) => { 
@@ -109,3 +120,5 @@ buttons.forEach((button) => {
 
 const roundResultText = document.querySelector('.roundResult');
 const mainGameHeaderText = document.querySelector('.mainGameHeader');
+const resetButton = document.querySelector('.resetGameButton button');
+resetButton.addEventListener("click", resetGame);
