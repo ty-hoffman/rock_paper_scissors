@@ -33,7 +33,6 @@ function playRound (e) {
 
     if (roundsLeft === 0) {
         roundResultText.innerText = 'Please reset the game to play again.'
-        roundResultText.c
         return;
     }
 
